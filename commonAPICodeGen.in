@@ -1,0 +1,1 @@
+java -classpath $ADDITIONAL_COMMONAPI_CODEGEN_CLASS_PATH:${CMAKE_INSTALL_PREFIX}/share/commonAPI/eclipse.jar:${CMAKE_INSTALL_PREFIX}/share/commonAPI/codegen.jar:$ADDITIONAL_COMMONAPI_CODEGEN_CLASS_PATH commonapi.generator.CommonAPIStandaloneGen "$@"

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/OSGi%Minimum-1.2"/>
+	<classpathentry kind="lib" path="commons-cli-1.2/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="apache-log4j-1.2.17/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="guice-3.0/guice-3.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.genivi.commonapi.core"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="/org.genivi.commonapi.someip"/>
+	<classpathentry kind="src" path="/org.genivi.commonapi.dbus"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.antlr.runtime_3.2.0.v201101311130.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.common_2.9.1.v20130827-0309.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.ecore.xmi_2.9.1.v20130827-0309.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.core.dsl_0.8.10.201309262002.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.core_0.8.10.201309262002.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.deploymodel.dsl_0.8.10.201309262002.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.ecore_2.9.1.v20130827-0309.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.core.resources_3.8.101.v20130717-0806.jar" sourcepath="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.core.resources.source_3.8.101.v20130717-0806.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.platform.doc.isv_4.3.0.v20130606-0003.jar!/reference/api"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/dtree/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/events/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/localstore/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/properties/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/propertytester/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/refresh/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/resources/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/resources/mapping/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/resources/projectvariables/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/resources/refresh/win32/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/utils/*"/>
+			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/watson/*"/>
+			<accessrule kind="accessible" pattern="org/eclipse/core/resources/*"/>
+			<accessrule kind="accessible" pattern="org/eclipse/core/resources/filtermatchers/*"/>
+			<accessrule kind="accessible" pattern="org/eclipse/core/resources/mapping/*"/>
+			<accessrule kind="accessible" pattern="org/eclipse/core/resources/refresh/*"/>
+			<accessrule kind="accessible" pattern="org/eclipse/core/resources/team/*"/>
+			<accessrule kind="accessible" pattern="org/eclipse/core/resources/variableresolvers/*"/>
+			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.ecore.xcore.lib_1.0.0.v20131212-0836.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.ecore.xcore_1.1.2.v20131212-0836.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.mwe2.language_2.5.0.v201312110944.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.xtext_2.5.0.v201312110906.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.genivi.commonapi.qt"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

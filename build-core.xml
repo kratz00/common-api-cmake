@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project CommonAPICodeGenCommandLine">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="codegen.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="commonapi.cmdline.StandaloneGen"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="/home/jguillou/_Projects/pelagicore/mymodules/common-api-tools/org.genivi.commonapi.core/lib/guava-14.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/jguillou/_Projects/pelagicore/mymodules/common-api-command-line-codegen/commons-cli-1.2/commons-cli-1.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/jguillou/_Projects/pelagicore/mymodules/common-api-command-line-codegen/apache-log4j-1.2.17/log4j-1.2.17.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/jguillou/_Projects/pelagicore/mymodules/common-api-command-line-codegen/guice-3.0/guice-3.0.jar"/>
+            <fileset dir="/home/jguillou/_Projects/pelagicore/mymodules/common-api-command-line-codegen/bin"/>
+            <fileset dir="/home/jguillou/_Projects/pelagicore/mymodules/common-api-dbus-tools/org.genivi.commonapi.dbus/bin"/>
+            <fileset dir="/home/jguillou/_Projects/pelagicore/mymodules/common-api-tools/org.genivi.commonapi.core/bin"/>
+        </jar>
+    </target>
+</project>

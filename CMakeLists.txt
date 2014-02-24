@@ -29,6 +29,9 @@ add_subdirectory(src/commonapi/cmdline/dbus)
 
 if (NOT DISABLE_SOMEIP)
 	add_subdirectory(src/commonapi/cmdline/someip)
+endif()
+
+if (NOT DISABLE_QT)
 	add_subdirectory(src/commonapi/cmdline/qt)
 endif()
 

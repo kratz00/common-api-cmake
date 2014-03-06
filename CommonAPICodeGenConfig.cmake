@@ -5,7 +5,7 @@ set(COMMONAPI_GENERATED_FILES_LOCATION FrancaGen)
 find_package(PkgConfig REQUIRED)
 
 find_package(CommonAPISomeIPCodeGen)
-find_package(CommonAPIDBusCodeGen REQUIRED)
+find_package(CommonAPIDBusCodeGen)
 
 pkg_check_modules(COMMON_API REQUIRED CommonAPI)
 add_definitions(${COMMON_API_CFLAGS})

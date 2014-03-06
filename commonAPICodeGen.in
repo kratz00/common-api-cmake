@@ -1,1 +1,3 @@
-java -classpath $ADDITIONAL_COMMONAPI_CODEGEN_CLASS_PATH:${CMAKE_INSTALL_PREFIX}/share/commonAPI/eclipse.jar:${CMAKE_INSTALL_PREFIX}/share/commonAPI/codegen.jar:${CMAKE_INSTALL_PREFIX}/share/commonAPI/codegen-someip.jar:${CMAKE_INSTALL_PREFIX}/share/commonAPI/codegen-qt.jar:$ADDITIONAL_COMMONAPI_CODEGEN_CLASS_PATH:${CMAKE_INSTALL_PREFIX}/include/franca_idls commonapi.cmdline.StandaloneGen "$@"
+ROOT_FOLDER=`dirname $0`/..
+echo "ROOT : $ROOT_FOLDER"
+java -classpath $ADDITIONAL_COMMONAPI_CODEGEN_CLASS_PATH:${ROOT_FOLDER}/share/commonAPI/eclipse.jar:${ROOT_FOLDER}/share/commonAPI/codegen.jar:${ROOT_FOLDER}/share/commonAPI/codegen-someip.jar:${ROOT_FOLDER}/share/commonAPI/codegen-qt.jar:$ADDITIONAL_COMMONAPI_CODEGEN_CLASS_PATH:${ROOT_FOLDER}/include/franca_idls commonapi.cmdline.StandaloneGen "$@"

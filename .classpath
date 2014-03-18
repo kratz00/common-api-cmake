@@ -12,9 +12,9 @@
 	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.antlr.runtime_3.2.0.v201101311130.jar"/>
 	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.common_2.9.1.v20130827-0309.jar"/>
 	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.ecore.xmi_2.9.1.v20130827-0309.jar"/>
-	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.core.dsl_0.8.10.201309262002.jar"/>
-	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.core_0.8.10.201309262002.jar"/>
-	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.deploymodel.dsl_0.8.10.201309262002.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.core.dsl_0.8.11.201401091023.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.core_0.8.11.201401091023.jar"/>
+	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.franca.deploymodel.dsl_0.8.11.201401091023.jar"/>
 	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.emf.ecore_2.9.1.v20130827-0309.jar"/>
 	<classpathentry kind="lib" path="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.core.resources_3.8.101.v20130717-0806.jar" sourcepath="/home/jguillou/_Projects/pelagicore/eclipse-4.3.2/plugins/org.eclipse.core.resources.source_3.8.101.v20130717-0806.jar">
 		<attributes>

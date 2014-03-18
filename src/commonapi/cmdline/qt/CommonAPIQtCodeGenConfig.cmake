@@ -1,6 +1,4 @@
 
-set(CMAKE_AUTOMOC ON)
-
 if(Qt5Qml_DEFINITIONS)
 	set(ENABLE_QML_EXTENSION 1)
 		message("Qt Qml detected")
@@ -22,6 +20,8 @@ pkg_check_modules(COMMON_API_QT REQUIRED CommonAPI-Qt)
 add_definitions(${COMMON_API_QT_CFLAGS})
 
 find_package(CommonAPICodeGen)
+
+set(CMAKE_AUTOMOC ON)
 
 
 pkg_check_modules(COMMONAPI_QT CommonAPI-Qt)
@@ -50,8 +50,11 @@ macro(add_commonapi_qml_plugin interface)
 
 	set(GENERATED_FILES
 			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxy.h
-			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}moc.cpp
+			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxy.cpp
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxymoc.cpp
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}moc.cpp
 			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPlugin.cpp
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPluginmoc.cpp
 	)
 
 	message("${GENERATED_FILES} - ${FRANCA_DEPLOYMENT_FILE_LOCATION} - ${FRANCA_FILE_LOCATION} - qt")
@@ -59,12 +62,20 @@ macro(add_commonapi_qml_plugin interface)
 	add_generated_files_command("${GENERATED_FILES}" ${FRANCA_DEPLOYMENT_FILE_LOCATION${GENERATED_LIBRARY_NAME}} ${FRANCA_FILE_LOCATION${GENERATED_LIBRARY_NAME}} qt)
 
 	qt5_generate_moc(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxy.h
-		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}moc.cpp)
+		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxymoc.cpp)
+
 	qt5_generate_moc(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPlugin.cpp 
 		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPluginmoc.cpp)
+
+	# It seems like the only way to get the moc files properly generated is to add them as dependencies here
 	set_property(SOURCE ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPlugin.cpp
  		APPEND PROPERTY OBJECT_DEPENDS 
  		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPluginmoc.cpp
+ 	)
+
+	set_property(SOURCE ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxy.cpp
+ 		APPEND PROPERTY OBJECT_DEPENDS 
+ 		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxymoc.cpp
  	)
 
 	add_library(${PLUGIN_LIBRARY_NAME} SHARED

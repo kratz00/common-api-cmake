@@ -28,6 +28,7 @@ macro(add_generated_files_command GENERATED_FILES deploymentFile idlFile codegen
 		COMMAND ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerator}
 		MAIN_DEPENDENCY ${deploymentFile} ${idlFile}
 	)
+	include_directories(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION})
 endmacro()
 
 
@@ -106,9 +107,9 @@ macro(add_commonapi_proxy variableName interface)
 
 	include_directories(${SERVICE_HEADERS_LOCATION})
 
-	if(ENABLE_QML_EXTENSION)
-		install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/ DESTINATION ${QT_MODULES_LOCATION})
-	endif()
+#	if(ENABLE_QML_EXTENSION)
+#		install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/ DESTINATION ${QT_MODULES_LOCATION})
+#	endif()
 
 endmacro()
 

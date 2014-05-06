@@ -22,7 +22,7 @@
 
 		<repository>
 			<id>org.franca</id>
- 			<url>file:${basedir}/site_franca</url>
+  			<url>file://@INSTALLED_FRANCA_SITE_PATH@</url>
 			<layout>p2</layout>
 		</repository>
 

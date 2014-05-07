@@ -20,12 +20,16 @@ endmacro()
 
 #add_definitions("-DCOMMONAPI_INTERNAL_COMPILATION")
 
+macro(add_generated_files_command GENERATED_FILES deploymentFile idlFile codegenerators)
 
-macro(add_generated_files_command GENERATED_FILES deploymentFile idlFile codegenerator)
-	message("Command : ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerator}")
+foreach(f ${codegenerators}) 
+    message("Generator : ${f}") 
+endforeach() 
+
+	message("Command___ : ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}")
 	add_custom_command(
 		OUTPUT ${GENERATED_FILES}
-		COMMAND ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerator}
+		COMMAND ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}
 		MAIN_DEPENDENCY ${deploymentFile} ${idlFile}
 	)
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION})

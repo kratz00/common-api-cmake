@@ -1,0 +1,2 @@
+
+install(FILES CommonAPISomeIPCodeGenConfig.cmake DESTINATION ${CMAKE_MODULES_DESTINATION_DIR}/CommonAPISomeIPCodeGen)

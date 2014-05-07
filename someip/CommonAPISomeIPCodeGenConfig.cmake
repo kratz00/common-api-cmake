@@ -28,7 +28,8 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 		${COMMON_API_SOMEIP_LIBRARIES}
 	)
 
-	add_generated_files_command("${GENERATED_FILES}" ${deploymentFile} ${idlFile} someip)
+	set(GENERATORS core someip)
+	add_generated_files_command("${GENERATED_FILES}" ${deploymentFile} ${idlFile} "${GENERATORS}")
 
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION})
 

@@ -1,0 +1,2 @@
+
+install(FILES CommonAPIQtCodeGenConfig.cmake DESTINATION ${CMAKE_MODULES_DESTINATION_DIR}/CommonAPIQtCodeGen)

@@ -21,12 +21,7 @@ endmacro()
 #add_definitions("-DCOMMONAPI_INTERNAL_COMPILATION")
 
 macro(add_generated_files_command GENERATED_FILES deploymentFile idlFile codegenerators)
-
-foreach(f ${codegenerators}) 
-    message("Generator : ${f}") 
-endforeach() 
-
-	message("Command___ : ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}")
+	message("Command : ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}")
 	add_custom_command(
 		OUTPUT ${GENERATED_FILES}
 		COMMAND ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}
@@ -37,15 +32,13 @@ endmacro()
 
 
 set(FRANCA_IDLS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/franca_idls)
-set(SERVICE_HEADERS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/CommonAPIServices/FrancaGen)
+set(SERVICE_HEADERS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/CommonAPIServices)
 
 macro(install_franca_idl interfaceName deploymentFile deploymentFileDestinationName idlFile)
 	install(FILES ${idlFile} DESTINATION ${FRANCA_IDLS_LOCATION}/${interfaceName}/.. )
-
 	message("configure file ${deploymentFile} ${CMAKE_CURRENT_BINARY_DIR}/${deploymentFileDestinationName}")
 	configure_file(${deploymentFile} ${CMAKE_CURRENT_BINARY_DIR}/${deploymentFileDestinationName} @ONLY)
-	install( FILES ${CMAKE_CURRENT_BINARY_DIR}/${deploymentFileDestinationName} DESTINATION ${FRANCA_IDLS_LOCATION}/${interfaceName}/.. )
-
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${deploymentFileDestinationName} DESTINATION ${FRANCA_IDLS_LOCATION}/${interfaceName}/.. )
 endmacro()
 
 
@@ -108,12 +101,7 @@ macro(add_commonapi_proxy variableName interface)
 
 	get_library_name(BASE___ ${interface})
 	set(${variableName}_LIBRARIES ${BASE___}_Backend)
-
 	include_directories(${SERVICE_HEADERS_LOCATION})
-
-#	if(ENABLE_QML_EXTENSION)
-#		install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/ DESTINATION ${QT_MODULES_LOCATION})
-#	endif()
 
 endmacro()
 

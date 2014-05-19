@@ -40,11 +40,23 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 endmacro()
 
 # Generates and installs a library containing a Some/IP CommonAPI stub and a proxy for the given interface
+#macro(add_commonapi_someip_service variableName deploymentFile idlFile interface)
+
+#	get_library_name(BASE___ ${interface})
+#	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_someip)
+#	install_commonapi_someip_backend(${BASE___} ${deploymentFile} ${idlFile} ${interface})
+#	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
+
+#endmacro()
+
 macro(add_commonapi_someip_service variableName deploymentFile idlFile interface)
 
 	get_library_name(BASE___ ${interface})
-	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_someip)
-	install_commonapi_someip_backend(${deploymentFile} ${idlFile} ${interface})
+	set(BACKEND someip)
+	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND})
+	install_commonapi_someip_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
 	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
 
 endmacro()
+
+

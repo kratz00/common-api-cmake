@@ -40,13 +40,23 @@ if(COMMON_API_DBUS_FOUND)
 	endmacro()
 
 	# Generates and installs a library containing a DBus CommonAPI stub and a proxy for the given interface
-	macro(add_commonapi_dbus_service variableName deploymentFile idlFile interface)
+#	macro(add_commonapi_dbus_service variableName deploymentFile idlFile interface)
+#		get_library_name(BASE___ ${interface})
+#		set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_dbus)
+#		install_commonapi_dbus_backend(${deploymentFile} ${idlFile} ${interface})
+#		install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
+#	endmacro()
+	
+	
+macro(add_commonapi_dbus_service variableName deploymentFile idlFile interface)
 
-		get_library_name(BASE___ ${interface})
-		set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_dbus)
-		install_commonapi_dbus_backend(${deploymentFile} ${idlFile} ${interface})
-		install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
+	get_library_name(BASE___ ${interface})
+	set(BACKEND dbus)
+	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND})
+	install_commonapi_dbus_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
+	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
 
-	endmacro()
+endmacro()
+	
 endif()
 

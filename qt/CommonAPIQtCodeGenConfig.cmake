@@ -47,6 +47,11 @@ macro(add_commonapi_qml_plugin interface)
 	add_commonapi_proxy(COMMON_API_PROXY ${interface})
 
 	set(PLUGIN_LIBRARY_NAME ${interfaceName})
+	
+	set(RESOURCE_FILES
+		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${NAMESPACE_PATH}/qmldir
+		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}UI.qml
+	)
 
 	set(GENERATED_FILES
 			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxy.h
@@ -55,6 +60,10 @@ macro(add_commonapi_qml_plugin interface)
 #			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}moc.cpp
 			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPlugin.cpp
 #			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QMLPluginmoc.cpp
+			${RESOURCE_FILES}
+	)
+
+	set(GENERATED_RESOURCE_FILES
 	)
 
 	message("${GENERATED_FILES} - ${FRANCA_DEPLOYMENT_FILE_LOCATION} - ${FRANCA_FILE_LOCATION} - qt")
@@ -77,7 +86,7 @@ macro(add_commonapi_qml_plugin interface)
  		APPEND PROPERTY OBJECT_DEPENDS 
  		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}QtProxymoc.cpp
  	)
-
+ 	
 	add_library(${PLUGIN_LIBRARY_NAME} SHARED
 		${GENERATED_FILES}
 	)
@@ -94,5 +103,6 @@ macro(add_commonapi_qml_plugin interface)
 	set_target_properties(${PLUGIN_LIBRARY_NAME} PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
 
 	install(TARGETS ${PLUGIN_LIBRARY_NAME} DESTINATION ${QT_MODULES_LOCATION}/${NAMESPACE_PATH})
+	install(FILES ${RESOURCE_FILES} DESTINATION ${QT_MODULES_LOCATION}/${NAMESPACE_PATH})
 
 endmacro()

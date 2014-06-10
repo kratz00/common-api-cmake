@@ -25,7 +25,7 @@ macro(add_generated_files_command GENERATED_FILES deploymentFile idlFile codegen
 	add_custom_command(
 		OUTPUT ${GENERATED_FILES}
 		COMMAND ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}
-		MAIN_DEPENDENCY ${deploymentFile} ${idlFile}
+		DEPENDS ${deploymentFile} ${idlFile}
 	)
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION})
 endmacro()

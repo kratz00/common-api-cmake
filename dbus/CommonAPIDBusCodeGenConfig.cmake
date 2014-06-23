@@ -1,3 +1,4 @@
+find_package(CommonAPICodeGenCommon REQUIRED)
 
 pkg_check_modules(COMMON_API_DBUS CommonAPI-DBus)
 

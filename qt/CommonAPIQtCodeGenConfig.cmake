@@ -1,4 +1,7 @@
 
+find_package(CommonAPICodeGenCommon REQUIRED)
+
+
 if(Qt5Qml_DEFINITIONS)
 	set(ENABLE_QML_EXTENSION 1)
 		message("Qt Qml detected")

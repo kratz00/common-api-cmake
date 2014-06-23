@@ -1,3 +1,6 @@
+find_package(CommonAPICodeGenCommon REQUIRED)
+
+find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(COMMON_API_SOMEIP CommonAPI-SomeIP)
 if(COMMON_API_SOMEIP_FOUND)
@@ -38,16 +41,6 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 	install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} DESTINATION include/CommonAPIServices)
 
 endmacro()
-
-# Generates and installs a library containing a Some/IP CommonAPI stub and a proxy for the given interface
-#macro(add_commonapi_someip_service variableName deploymentFile idlFile interface)
-
-#	get_library_name(BASE___ ${interface})
-#	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_someip)
-#	install_commonapi_someip_backend(${BASE___} ${deploymentFile} ${idlFile} ${interface})
-#	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
-
-#endmacro()
 
 macro(add_commonapi_someip_service variableName deploymentFile idlFile interface)
 

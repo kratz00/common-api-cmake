@@ -16,9 +16,11 @@ int main(int argc, const char** argv) {
 
 	if (returnCode) {
 		printf("Registration successful\n");
-		sleep(200);
-	}
-	else {
+		for (int i = 0; i < 200; i++) {
+			sleep(1);
+			service->setPassengerCurrentTemperatureAttribute(i);
+		}
+	} else {
 		printf("Registration failed\n");
 		return -1;
 	}

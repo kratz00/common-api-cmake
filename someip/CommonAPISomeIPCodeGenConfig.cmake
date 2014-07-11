@@ -38,7 +38,7 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 
 	get_library_name(BASE___ ${interface})
 	install( TARGETS ${BASE___}_someip DESTINATION lib)
-	install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} DESTINATION include/CommonAPIServices)
+	install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/ DESTINATION ${SERVICE_HEADERS_INSTALLATION_DESTINATION})
 
 endmacro()
 

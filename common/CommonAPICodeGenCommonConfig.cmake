@@ -9,7 +9,8 @@ add_definitions(${COMMON_API_CFLAGS})
 link_directories(${COMMON_API_LIBRARY_DIRS})
 
 set(FRANCA_IDLS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/franca_idls)
-set(SERVICE_HEADERS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/CommonAPIServices)
+set(SERVICE_HEADERS_INSTALLATION_DESTINATION include/CommonAPIServices)
+set(SERVICE_HEADERS_INSTALLED_LOCATION ${CMAKE_INSTALL_PREFIX}/${SERVICE_HEADERS_INSTALLATION_DESTINATION})
 
 
 macro(get_library_name variableName interface)
@@ -44,6 +45,6 @@ macro(use_commonapi_service variableName interface)
 
 	get_library_name(BASE___ ${interface})
 	set(${variableName}_LIBRARIES ${BASE___}_Backend)
-	include_directories(${SERVICE_HEADERS_LOCATION})
+	include_directories(${SERVICE_HEADERS_INSTALLED_LOCATION})
 
 endmacro()

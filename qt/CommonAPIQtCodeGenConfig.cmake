@@ -22,8 +22,6 @@ add_definitions(${Qt5Script_DEFINITIONS})
 pkg_check_modules(COMMON_API_QT REQUIRED CommonAPI-Qt)
 add_definitions(${COMMON_API_QT_CFLAGS})
 
-find_package(CommonAPICodeGen)
-
 set(CMAKE_AUTOMOC ON)
 
 
@@ -33,6 +31,8 @@ pkg_check_modules(COMMONAPI_QT CommonAPI-Qt)
 macro(add_commonapi_qml_plugin interface)
 
 	message("QML plugin configured for " ${interface} " / CMAKE_FIND_ROOT_PATH: " ${CMAKE_FIND_ROOT_PATH})
+
+	use_commonapi_service(COMMON_API_PROXY ${interface})
 
 	get_library_name(GENERATED_LIBRARY_NAME ${interface})
 
@@ -46,8 +46,6 @@ macro(add_commonapi_qml_plugin interface)
 
 	GET_FILENAME_COMPONENT(interfaceName ${interface} NAME )
 	GET_FILENAME_COMPONENT(NAMESPACE_PATH ${interface} PATH )
-
-	add_commonapi_proxy(COMMON_API_PROXY ${interface})
 
 	set(PLUGIN_LIBRARY_NAME ${interfaceName})
 	

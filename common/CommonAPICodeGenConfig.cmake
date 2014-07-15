@@ -2,6 +2,7 @@ find_package(CommonAPICodeGenCommon REQUIRED)
 
 find_package(CommonAPISomeIPCodeGen)
 find_package(CommonAPIDBusCodeGen)
+find_package(PkgConfig)
 
 # Generates and installs a library containing a CommonAPI stub and a proxy for the given interface
 # By default, the DBUS backend is used unless the "DEFAULT_COMMONAPI_BACKEND" variable is set to "someip"
@@ -30,8 +31,7 @@ macro(add_commonapi_service variableName deploymentFilePrefix idlFile interface)
 endmacro()
 
 # Generates a CommonAPI proxy for the given interface
-macro(add_commonapi_proxy variableName interface)
-    use_commonapi_proxy(${variableName} ${interface})
-endmacro()
-
+#macro(add_commonapi_proxy variableName interface)
+#    use_commonapi_proxy(${variableName} ${interface})
+#endmacro()
 

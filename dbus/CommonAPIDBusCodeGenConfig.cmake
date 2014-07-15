@@ -38,6 +38,10 @@ if(COMMON_API_DBUS_FOUND)
 		install( TARGETS ${BASE___}_dbus DESTINATION lib)
 		install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/ DESTINATION ${SERVICE_HEADERS_INSTALLATION_DESTINATION})
 
+	    install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
+
+    	add_commonapi_pkgconfig(${interface})
+
 	endmacro()
 
 	# Generates and installs a library containing a DBus CommonAPI stub and a proxy for the given interface
@@ -55,7 +59,6 @@ macro(add_commonapi_dbus_service variableName deploymentFile idlFile interface)
 	set(BACKEND dbus)
 	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND})
 	install_commonapi_dbus_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
-	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
 
 endmacro()
 	

@@ -14,7 +14,7 @@ set(SERVICE_HEADERS_INSTALLED_LOCATION ${CMAKE_INSTALL_PREFIX}/${SERVICE_HEADERS
 
 
 macro(get_library_name variableName interface)
-	set(LIBRARY_NAME ${interface}_CommonAPIGenerated)
+	set(LIBRARY_NAME ${interface}_CommonAPI)
 	STRING(REGEX REPLACE "/" "_" LIBRARY_NAME ${LIBRARY_NAME})
 	set ( ${variableName} ${LIBRARY_NAME})
 	message ("Library name : ${${variableName}} ")
@@ -43,8 +43,37 @@ endmacro()
 # Use a previously generated CommonAPI proxy/stub library
 macro(use_commonapi_service variableName interface)
 
-	get_library_name(BASE___ ${interface})
-	set(${variableName}_LIBRARIES ${BASE___}_Backend)
-	include_directories(${SERVICE_HEADERS_INSTALLED_LOCATION})
+	get_library_name(LIBRARY_NAME ${interface})
+	set(PKGCONFIG_FILENAME ${LIBRARY_NAME})
+
+    pkg_check_modules(${PKGCONFIG_FILENAME}_PKG REQUIRED ${PKGCONFIG_FILENAME})
+    add_definitions(${${PKGCONFIG_FILENAME}_PKG_CFLAGS})
+    link_directories(${${PKGCONFIG_FILENAME}_PKG_LIBRARY_DIRS})
+    set(${variableName}_LIBRARIES ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES})
+
+    message("CommonAPI libraries for ${interface} : ${${variableName}_LIBRARIES}")
+
+endmacro()
+
+
+# Generates and installs a pkg-config file 
+macro(add_commonapi_pkgconfig interface)
+
+	get_library_name(LIBRARY_NAME ${interface})
+	set(PKGCONFIG_FILENAME ${LIBRARY_NAME}.pc)
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PKGCONFIG_FILENAME} "prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=\${prefix}
+libdir=\${prefix}/lib
+includedir=\${prefix}/include
+
+Name: Common-API Service
+Description: Common-API Service
+Version: 1
+Requires: CommonAPI
+Libs: -l${LIBRARY_NAME}_Backend
+Cflags: -I\${includedir}/CommonAPIServices
+")
+
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PKGCONFIG_FILENAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
 
 endmacro()

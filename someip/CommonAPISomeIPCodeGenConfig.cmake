@@ -23,7 +23,7 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 	)
 
 	set_target_properties(${LIBRARY_NAME}_someip PROPERTIES VERSION 1 SOVERSION 1)
-	
+
 	# Once installed, the library will be called ${LIBRARY_NAME}_Backend
 	set_target_properties(${LIBRARY_NAME}_someip PROPERTIES OUTPUT_NAME ${LIBRARY_NAME}_Backend )
 
@@ -40,6 +40,9 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 	install( TARGETS ${BASE___}_someip DESTINATION lib)
 	install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/ DESTINATION ${SERVICE_HEADERS_INSTALLATION_DESTINATION})
 
+	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
+	add_commonapi_pkgconfig(${interface})
+
 endmacro()
 
 macro(add_commonapi_someip_service variableName deploymentFile idlFile interface)
@@ -48,7 +51,6 @@ macro(add_commonapi_someip_service variableName deploymentFile idlFile interface
 	set(BACKEND someip)
 	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND})
 	install_commonapi_someip_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
-	install_franca_idl(${interface} ${deploymentFile} ${deploymentFile} ${idlFile})
 
 endmacro()
 

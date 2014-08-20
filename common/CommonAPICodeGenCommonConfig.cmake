@@ -8,6 +8,8 @@ pkg_check_modules(COMMON_API REQUIRED CommonAPI)
 add_definitions(${COMMON_API_CFLAGS})
 link_directories(${COMMON_API_LIBRARY_DIRS})
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 set(FRANCA_IDLS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/franca_idls)
 set(SERVICE_HEADERS_INSTALLATION_DESTINATION include/CommonAPIServices)
 set(SERVICE_HEADERS_INSTALLED_LOCATION ${CMAKE_INSTALL_PREFIX}/${SERVICE_HEADERS_INSTALLATION_DESTINATION})
@@ -56,12 +58,20 @@ macro(use_commonapi_service variableName interface)
 endmacro()
 
 
-# Generates and installs a pkg-config file 
+# Generates and installs a pkg-config file
 macro(add_commonapi_pkgconfig interface)
+
+if(INSTALL_PKGCONFIG_UNINSTALLED_FILE)
+    set(DEVELOPMENT_INCLUDE_PATH " -I${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} #")
+    set(DEVELOPMENT_LIBRARY_PATH " -L${CMAKE_CURRENT_BINARY_DIR} #" )
+else()
+    set(DEVELOPMENT_INCLUDE_PATH "")
+    set(DEVELOPMENT_LIBRARY_PATH "")
+endif()
 
 	get_library_name(LIBRARY_NAME ${interface})
 	set(PKGCONFIG_FILENAME ${LIBRARY_NAME}.pc)
-    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${PKGCONFIG_FILENAME} "prefix=@CMAKE_INSTALL_PREFIX@
+    file(WRITE ${PROJECT_BINARY_DIR}/${PKGCONFIG_FILENAME} "prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=\${prefix}
 libdir=\${prefix}/lib
 includedir=\${prefix}/include
@@ -70,10 +80,10 @@ Name: Common-API Service
 Description: Common-API Service
 Version: 1
 Requires: CommonAPI
-Libs: -l${LIBRARY_NAME}_Backend
-Cflags: -I\${includedir}/CommonAPIServices
+Libs: -l${LIBRARY_NAME}_Backend @DEVELOPMENT_LIBRARY_PATH@ 
+Cflags: @DEVELOPMENT_INCLUDE_PATH@ -I\${includedir}/CommonAPIServices
 ")
 
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PKGCONFIG_FILENAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
+    install(FILES ${PROJECT_BINARY_DIR}/${PKGCONFIG_FILENAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
 
 endmacro()

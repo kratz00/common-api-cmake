@@ -18,7 +18,7 @@ macro(add_commonapi_service variableName deploymentFilePrefix idlFile interface)
 
 	message("Using ${BACKEND} backend")
 	set(deploymentFile ${deploymentFilePrefix}-${BACKEND}.fdepl)
-	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND})
+	set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND} -Wl,--as-needed)
 
 	if(${BACKEND} MATCHES "someip")
 		install_commonapi_someip_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})

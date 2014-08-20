@@ -95,16 +95,14 @@ macro(add_commonapi_qml_plugin interface)
 	qt5_use_modules(${PLUGIN_LIBRARY_NAME} Qml)
 	qt5_use_modules(${PLUGIN_LIBRARY_NAME} Script)
 
-	# Make sure the linker does NOT remove the dependencies when no symbol is directly needed
-    #	set_target_properties(${PLUGIN_LIBRARY_NAME} PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-#	TARGET_LINK_LIBRARIES( ${PLUGIN_LIBRARY_NAME})
-
+	# Make sure the linker does NOT remove the dependencies when no symbol is directly needed, which is generally the case
+	# with CommonAPI backend libraries because of the abstract API
 	TARGET_LINK_LIBRARIES( ${PLUGIN_LIBRARY_NAME}
         "-Wl,--no-as-needed"
 		${COMMON_API_PROXY_LIBRARIES}
+        "-Wl,--as-needed"
 		${COMMON_API_QT_LIBRARIES}
 	)
-
 
 	install(TARGETS ${PLUGIN_LIBRARY_NAME} DESTINATION ${QT_MODULES_LOCATION}/${NAMESPACE_PATH})
 	install(FILES ${RESOURCE_FILES} DESTINATION ${QT_MODULES_LOCATION}/${NAMESPACE_PATH})

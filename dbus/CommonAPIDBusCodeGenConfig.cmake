@@ -57,7 +57,7 @@ macro(add_commonapi_dbus_service variableName deploymentFile idlFile interface)
 
 	get_library_name(BASE___ ${interface})
 	set(BACKEND dbus)
-	set(${variableName}_LIBRARIES ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND})
+	set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND} -Wl,--as-needed)
 	install_commonapi_dbus_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
 
 endmacro()

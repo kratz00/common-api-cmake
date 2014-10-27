@@ -1,6 +1,6 @@
 find_package(CommonAPICodeGenCommon REQUIRED)
 
-pkg_check_modules(COMMON_API_DBUS CommonAPI-DBus)
+pkg_check_modules(COMMON_API_DBUS CommonAPI-DBus REQUIRED)
 
 if(COMMON_API_DBUS_FOUND)
 	add_definitions(${COMMON_API_DBUS_CFLAGS})
@@ -9,12 +9,16 @@ if(COMMON_API_DBUS_FOUND)
 	# Generates and installs a library containing a DBus stub and a proxy for the given interface
 	macro(install_commonapi_dbus_backend LIBRARY_NAME variableName deploymentFile idlFile interface)
 
-		set(GENERATED_FILES
-			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}DBusStubAdapter.cpp
-			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}DBusProxy.cpp
-			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}.cpp
-			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}StubDefault.cpp
-		)
+		set(GENERATORS core dbus)
+
+        get_generated_files_list("GENERATED_FILES" ${deploymentFile} "${GENERATORS}")
+
+#		set(GENERATED_FILES
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}DBusStubAdapter.cpp
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}DBusProxy.cpp
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}.cpp
+#			${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}StubDefault.cpp
+#		)
 
 		add_library(${LIBRARY_NAME}_dbus SHARED
 			${GENERATED_FILES}
@@ -29,7 +33,6 @@ if(COMMON_API_DBUS_FOUND)
 			${COMMON_API_DBUS_LIBRARIES}
 		)
 
-		set(GENERATORS core dbus)
 		add_generated_files_command("${GENERATED_FILES}" ${deploymentFile} ${idlFile} "${GENERATORS}")
 
 		include_directories(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION})

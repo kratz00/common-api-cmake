@@ -1,7 +1,5 @@
 find_package(CommonAPICodeGenCommon REQUIRED)
 
-find_package(CommonAPISomeIPCodeGen)
-find_package(CommonAPIDBusCodeGen)
 find_package(PkgConfig)
 
 # Generates and installs a library containing a CommonAPI stub and a proxy for the given interface
@@ -21,8 +19,10 @@ macro(add_commonapi_service variableName deploymentFilePrefix idlFile interface)
 	set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${variableName}_LIBRARIES} ${BASE___}_${BACKEND} -Wl,--as-needed)
 
 	if(${BACKEND} MATCHES "someip")
+        find_package(CommonAPISomeIPCodeGen REQUIRED)
 		install_commonapi_someip_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
 	else()
+        find_package(CommonAPIDBusCodeGen REQUIRED)
 		install_commonapi_dbus_backend(${BASE___} ${variableName} ${deploymentFile} ${idlFile} ${interface})
 	endif()
 

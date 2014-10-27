@@ -22,6 +22,17 @@ macro(get_library_name variableName interface)
 	message ("Library name : ${${variableName}} ")
 endmacro()
 
+macro(get_generated_files_list VARIABLE_NAME deploymentFile codegenerators)
+
+    execute_process(
+        COMMAND ${COMMONAPI_CODEGEN_COMMAND_LINE} -l -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}
+        OUTPUT_VARIABLE ${VARIABLE_NAME} OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+    message(STATUS "List of generated files : ${${VARIABLE_NAME}}")
+
+endmacro()
+
 
 macro(add_generated_files_command GENERATED_FILES deploymentFile idlFile codegenerators)
 	message("Command : ${COMMONAPI_CODEGEN_COMMAND_LINE} -f ${deploymentFile} -o ${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} ${codegenerators}")
@@ -61,13 +72,13 @@ endmacro()
 # Generates and installs a pkg-config file
 macro(add_commonapi_pkgconfig interface)
 
-if(INSTALL_PKGCONFIG_UNINSTALLED_FILE)
-    set(DEVELOPMENT_INCLUDE_PATH " -I${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} #")
-    set(DEVELOPMENT_LIBRARY_PATH " -L${CMAKE_CURRENT_BINARY_DIR} #" )
-else()
-    set(DEVELOPMENT_INCLUDE_PATH "")
-    set(DEVELOPMENT_LIBRARY_PATH "")
-endif()
+    if(INSTALL_PKGCONFIG_UNINSTALLED_FILE)
+        set(DEVELOPMENT_INCLUDE_PATH " -I${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION} #")
+        set(DEVELOPMENT_LIBRARY_PATH " -L${CMAKE_CURRENT_BINARY_DIR} #" )
+    else()
+        set(DEVELOPMENT_INCLUDE_PATH "")
+        set(DEVELOPMENT_LIBRARY_PATH "")
+    endif()
 
 	get_library_name(LIBRARY_NAME ${interface})
 	set(PKGCONFIG_FILENAME ${LIBRARY_NAME}.pc)

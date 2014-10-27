@@ -11,12 +11,16 @@ endif()
 # Generates and installs a library containing a SomeIP stub and a proxy for the given interface
 macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile idlFile interface)
 
-	set(GENERATED_FILES
-		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}SomeIPStubAdapter.cpp
-		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}SomeIPProxy.cpp
-		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}.cpp
-		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}StubDefault.cpp
-	)
+	set(GENERATORS core someip)
+	
+    get_generated_files_list("GENERATED_FILES" ${deploymentFile} "${GENERATORS}")
+
+#	set(GENERATED_FILES
+#		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}SomeIPStubAdapter.cpp
+#		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}SomeIPProxy.cpp
+#		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}.cpp
+#		${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION}/${interface}StubDefault.cpp
+#	)
 
 	add_library(${LIBRARY_NAME}_someip SHARED
 		${GENERATED_FILES}
@@ -31,7 +35,6 @@ macro(install_commonapi_someip_backend LIBRARY_NAME variableName deploymentFile 
 		${COMMON_API_SOMEIP_LIBRARIES}
 	)
 
-	set(GENERATORS core someip)
 	add_generated_files_command("${GENERATED_FILES}" ${deploymentFile} ${idlFile} "${GENERATORS}")
 
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}/${COMMONAPI_GENERATED_FILES_LOCATION})

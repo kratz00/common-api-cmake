@@ -63,6 +63,7 @@ macro(use_commonapi_service variableName interface)
     add_definitions(${${PKGCONFIG_FILENAME}_PKG_CFLAGS})
     link_directories(${${PKGCONFIG_FILENAME}_PKG_LIBRARY_DIRS})
     set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES} -Wl,--as-needed)
+    set(${variableName}_PKGCONFIG_FILENAME ${PKGCONFIG_FILENAME})
 
     message("CommonAPI libraries for ${interface} : ${${variableName}_LIBRARIES}")
 

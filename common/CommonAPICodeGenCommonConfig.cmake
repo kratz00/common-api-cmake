@@ -62,7 +62,7 @@ macro(use_commonapi_service variableName interface)
     pkg_check_modules(${PKGCONFIG_FILENAME}_PKG REQUIRED ${PKGCONFIG_FILENAME})
     add_definitions(${${PKGCONFIG_FILENAME}_PKG_CFLAGS})
     link_directories(${${PKGCONFIG_FILENAME}_PKG_LIBRARY_DIRS})
-    set(${variableName}_LIBRARIES ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES})
+    set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES} -Wl,--as-needed)
 
     message("CommonAPI libraries for ${interface} : ${${variableName}_LIBRARIES}")
 

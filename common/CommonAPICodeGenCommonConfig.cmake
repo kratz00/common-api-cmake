@@ -19,6 +19,7 @@ macro(get_library_name variableName interface)
 	set(LIBRARY_NAME ${interface}_CommonAPI)
 	STRING(REGEX REPLACE "/" "_" LIBRARY_NAME ${LIBRARY_NAME})
 	set ( ${variableName} ${LIBRARY_NAME})
+	
 	message ("Library name : ${${variableName}} ")
 endmacro()
 
@@ -62,7 +63,7 @@ macro(use_commonapi_service variableName interface)
     pkg_check_modules(${PKGCONFIG_FILENAME}_PKG REQUIRED ${PKGCONFIG_FILENAME})
     add_definitions(${${PKGCONFIG_FILENAME}_PKG_CFLAGS})
     link_directories(${${PKGCONFIG_FILENAME}_PKG_LIBRARY_DIRS})
-    set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES} -Wl,--as-needed)
+    set(${variableName}_LIBRARIES ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES})
     set(${variableName}_PKGCONFIG_FILENAME ${PKGCONFIG_FILENAME})
 
     message("CommonAPI libraries for ${interface} : ${${variableName}_LIBRARIES}")
@@ -88,11 +89,11 @@ exec_prefix=\${prefix}
 libdir=\${prefix}/lib
 includedir=\${prefix}/include
 
-Name: Common-API Service
-Description: Common-API Service
+Name: ${interface} Common-API Service
+Description: ${interface} Common-API Service
 Version: 1
 Requires: CommonAPI
-Libs: -l${LIBRARY_NAME}_Backend @DEVELOPMENT_LIBRARY_PATH@ 
+Libs: -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,-Wl,--as-needed @DEVELOPMENT_LIBRARY_PATH@ 
 Cflags: @DEVELOPMENT_INCLUDE_PATH@ -I\${includedir}/CommonAPIServices
 ")
 

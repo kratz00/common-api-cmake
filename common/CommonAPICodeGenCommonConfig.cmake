@@ -91,9 +91,9 @@ includedir=\${prefix}/include
 
 Name: ${interface} Common-API Service
 Description: ${interface} Common-API Service
-Version: 1
+Version: 
 Requires: CommonAPI
-Libs: -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,-Wl,--as-needed @DEVELOPMENT_LIBRARY_PATH@ 
+Libs: -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,--as-needed @DEVELOPMENT_LIBRARY_PATH@
 Cflags: @DEVELOPMENT_INCLUDE_PATH@ -I\${includedir}/CommonAPIServices
 ")
 

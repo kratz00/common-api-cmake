@@ -63,7 +63,9 @@ macro(use_commonapi_service variableName interface)
     pkg_check_modules(${PKGCONFIG_FILENAME}_PKG REQUIRED ${PKGCONFIG_FILENAME})
     add_definitions(${${PKGCONFIG_FILENAME}_PKG_CFLAGS})
     link_directories(${${PKGCONFIG_FILENAME}_PKG_LIBRARY_DIRS})
-    set(${variableName}_LIBRARIES ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES})
+
+    # See below why "--no-as-needed" is needed here
+	set(${variableName}_LIBRARIES -Wl,--no-as-needed ${${PKGCONFIG_FILENAME}_PKG_LIBRARIES} -Wl,--as-needed)
     set(${variableName}_PKGCONFIG_FILENAME ${PKGCONFIG_FILENAME})
 
     message("CommonAPI libraries for ${interface} : ${${variableName}_LIBRARIES}")
@@ -71,6 +73,7 @@ macro(use_commonapi_service variableName interface)
 endmacro()
 
 
+# Warning : the pkg_check_modules macro seems to remove the libraries specified between "--no-as-needed" and "--as-needed" in pkg-config files, so we need to add the library twice. Once with "--no-as-needed" and once without
 # Generates and installs a pkg-config file
 macro(add_commonapi_pkgconfig interface)
 
@@ -93,7 +96,7 @@ Name: ${interface} Common-API Service
 Description: ${interface} Common-API Service
 Version: 
 Requires: CommonAPI
-Libs: -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,--as-needed @DEVELOPMENT_LIBRARY_PATH@
+Libs: -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,--as-needed -l${LIBRARY_NAME}_Backend @DEVELOPMENT_LIBRARY_PATH@ 
 Cflags: @DEVELOPMENT_INCLUDE_PATH@ -I\${includedir}/CommonAPIServices
 ")
 

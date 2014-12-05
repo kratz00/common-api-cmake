@@ -10,6 +10,4 @@ FIND_PACKAGE(PkgConfig REQUIRED)
 set(JAR_DESTINATION_PATH share/CommonAPICodeGen)
 
 add_subdirectory(common)
-add_subdirectory(qt)
 add_subdirectory(dbus)
-add_subdirectory(someip)

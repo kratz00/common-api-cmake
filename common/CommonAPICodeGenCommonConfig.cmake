@@ -107,7 +107,7 @@ Name: ${interface} Common-API Service
 Description: ${interface} Common-API Service
 Version: 
 Requires: CommonAPI
-Libs: -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,--as-needed -l${LIBRARY_NAME}_Backend @DEVELOPMENT_LIBRARY_PATH@ 
+Libs: -L\${libdir} -Wl,--no-as-needed,-l${LIBRARY_NAME}_Backend,--as-needed -l${LIBRARY_NAME}_Backend @DEVELOPMENT_LIBRARY_PATH@ 
 Cflags: @DEVELOPMENT_INCLUDE_PATH@ -I\${includedir}/CommonAPIServices
 ")
 

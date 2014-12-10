@@ -8,7 +8,18 @@ pkg_check_modules(COMMON_API REQUIRED CommonAPI)
 add_definitions(${COMMON_API_CFLAGS})
 link_directories(${COMMON_API_LIBRARY_DIRS})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+include(CheckCXXCompilerFlag)
+
+CHECK_CXX_COMPILER_FLAG("-std=c++11" CXX_COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" CXX_COMPILER_SUPPORTS_CXX0X)
+
+if(CXX_COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(CXX_COMPILER_SUPPORTS_CXX0X)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+    message(FATAL_ERROR "${CMAKE_CXX_COMPILER} has no C++11 support.")
+endif()
 
 set(FRANCA_IDLS_LOCATION ${CMAKE_INSTALL_PREFIX}/include/franca_idls)
 set(SERVICE_HEADERS_INSTALLATION_DESTINATION include/CommonAPIServices)
